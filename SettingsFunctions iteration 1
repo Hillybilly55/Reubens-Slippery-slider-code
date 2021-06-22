@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+
+
+public class SettingsFunctions : MonoBehaviour
+{
+    
+    
+    public AudioMixer audioMixer;
+
+    //Sets the volume on the mixer to the volume of a slider with the SetVolume function attached
+    //It also tells you the value the slider is at in the debug log (this was added for troubleshooting purposes)
+    public void SetVolume(float volume)
+    {
+        Debug.Log(volume);
+        audioMixer.SetFloat("volume", volume);
+    }
+
+
+}
+
+
+
+
+
+
+

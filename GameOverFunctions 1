@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameOverFunctions : MonoBehaviour
+{
+
+    //this will load the game when you press the play again button
+   public void PlayAgain()
+    {
+        SceneManager.LoadScene("Endless mode");
+    }
+
+    //this will return to the title screen when you press the return to main menu button
+    public void ReturntoMainMenu()
+    {
+        SceneManager.LoadScene("TITLE SCREEN");
+    }
+}

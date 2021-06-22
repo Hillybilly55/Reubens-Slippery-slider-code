@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+
+
+public class PauseFunctions : MonoBehaviour
+{
+
+    //Loads game whenever you press button with the Play() function
+    public void Play()
+    {
+        SceneManager.LoadScene("TITLE SCREEN");
+    }
+
+    public AudioMixer audioMixer;
+
+    //Sets the volume on the mixer to the volume of a slider with the SetVolume function attached
+    //It also tells you the value the slider is at in the debug log (this was added for troubleshooting purposes)
+    public void SetVolume(float volume)
+    {
+        Debug.Log(volume);
+        audioMixer.SetFloat("volume", volume);
+    }
+
+   
+
+

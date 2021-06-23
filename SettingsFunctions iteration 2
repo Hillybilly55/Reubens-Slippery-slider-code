@@ -1,0 +1,87 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+
+
+public class SettingsFunctions : MonoBehaviour
+{
+    //This gathers all the varibles required to be 
+    private static readonly string FirstPlay = "FirstPlay";
+    private static readonly string VolumePref = "VolumePref";
+    private int firstPlayInt;
+    public Slider volumeSlider;
+    private float volumeFloat;
+    public AudioSource gameAudio;
+
+    //This code triggers before the game starts running
+    void Start()
+    {
+        //This code detects on your computer if this is your first time playing the game
+        firstPlayInt = PlayerPrefs.GetInt(FirstPlay);
+
+        //If it is your first time playing the game will get set to the default volume settings
+        //and makes sure the game knows this isn't your first time playing so it knows to get the
+        //volume you prefer to play with every other time
+
+
+        if (firstPlayInt == 0)
+        {
+
+            volumeFloat = .75f;
+            volumeSlider.value = volumeFloat;
+            PlayerPrefs.SetFloat(VolumePref, volumeFloat);
+            PlayerPrefs.SetInt(FirstPlay, -1);
+
+
+        }
+        else
+        {
+            // This gets the volume settings you played on last time and sets it to that
+            volumeFloat = PlayerPrefs.GetFloat(VolumePref);
+            volumeSlider.value = volumeFloat;
+
+        }
+
+
+
+    }
+
+    public void SaveSoundSettings()
+    {
+        //This is the code that saves the settings you like
+        PlayerPrefs.SetFloat(VolumePref, volumeSlider.value);
+
+    }
+    
+
+    //This makes so that your sound settings get saved everytime you close youre tab or game
+    void OnApplicationFocus(bool inFocus)
+    {
+        if (!inFocus)
+        {
+            SaveSoundSettings();
+        }
+
+
+    }
+
+    //This makes it so your volume is always equal to the value you have your slider set to.
+    public void UpdateSound()
+    {
+        gameAudio.volume = volumeSlider.value;
+        Debug.Log(volumeSlider.value);
+
+    }
+
+
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,116 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+
+public class PauseFunctions : MonoBehaviour
+{
+    //these are all the assests i need to refrence in my code
+    private static readonly string FirstPlay = "FirstPlay";
+    private static readonly string VolumePref = "VolumePref";
+    private int firstPlayInt;
+    public Slider volumeSlider;
+    private float volumeFloat;
+    public AudioSource gameAudio;
+    public InputField volumeInput;
+
+
+    //This code triggers before the game starts running
+    void Start()
+    {
+        //This code detects on your computer if this is your first time playing the game
+        firstPlayInt = PlayerPrefs.GetInt(FirstPlay);
+        gameAudio.volume = volumeSlider.value;
+
+        //If it is your first time playing the game will get set to the default volume settings
+        //and makes sure the game knows this isn't your first time playing so it knows to get the
+        //volume you prefer to play with every other time
+
+        //
+        if (firstPlayInt == 0)
+        {
+
+            volumeFloat = .75f;
+            volumeSlider.value = volumeFloat;
+            PlayerPrefs.SetFloat(VolumePref, volumeFloat);
+            PlayerPrefs.SetInt(FirstPlay, -1);
+            volumeInput.text = (volumeFloat * 100).ToString();
+
+
+        }
+        else
+        {
+            // This gets the volume settings you played on last time and sets it to that
+            volumeFloat = PlayerPrefs.GetFloat(VolumePref);
+            volumeSlider.value = volumeFloat;
+            //This sets the text in the volume input box to the volume the slider loads at
+            volumeInput.text = (volumeFloat * 100).ToString();
+
+        }
+
+
+
+    }
+
+
+
+    public void SaveSoundSettings()
+    {
+        //This is the code that saves the settings you like
+        PlayerPrefs.SetFloat(VolumePref, volumeSlider.value);
+    }
+
+
+    //This makes so that your sound settings get saved everytime you close youre tab or game
+    void OnApplicationFocus(bool inFocus)
+    {
+        if (!inFocus)
+        {
+            SaveSoundSettings();
+        }
+
+
+    }
+
+    //This makes it so your volume is always equal to the value you have your slider set to.
+    public void UpdateSound()
+    {
+        gameAudio.volume = volumeSlider.value;
+        volumeFloat = volumeSlider.value;
+        //This sets the volume input boxes text to what you have the slider at whenever you change it.
+        volumeInput.text = (volumeFloat * 100f).ToString();        
+    }
+
+    //Sends you to the title screen when you press a button with the ReturntoMainMenu() function
+    public void ReturntoMainMenu()
+    {
+        SceneManager.LoadScene("TITLE SCREEN");
+        //it also saves the settings you like everytime you leave the scen
+        SaveSoundSettings();
+    }
+
+
+    void Update()
+    {
+
+        //this sets the value on the volume slider to the number inputed in the 
+        //volume input box everytime you press the "enter" or "return" keys
+        if(Input.GetKeyDown(KeyCode.Return)) {
+            int number;
+            if(Int32.TryParse(volumeInput.text, out number) == true) {
+                volumeFloat = Int32.Parse(volumeInput.text);
+                volumeFloat = volumeFloat * 0.01f;
+                Debug.Log(volumeFloat);
+                volumeSlider.value = volumeFloat;
+                
+            }
+        }
+    }
+
+
+
+}

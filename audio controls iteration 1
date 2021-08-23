@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class audiocontrol4 : MonoBehaviour
+{
+    //refrences information in the scene to use in the code
+    private static readonly string VolumePref = "VolumePref";
+    private float volumeFloat;
+    public AudioSource gameAudio;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //gathers your volume pref and sets the games volume to that prefernece
+        volumeFloat = PlayerPrefs.GetFloat(VolumePref);
+        gameAudio.volume = volumeFloat;
+    }
+
+
+}

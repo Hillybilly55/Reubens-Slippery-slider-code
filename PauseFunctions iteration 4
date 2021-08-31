@@ -119,7 +119,6 @@ public class PauseFunctions : MonoBehaviour
                 {
                     volumeFloat = 100f;
                     volumeSlider.value = volumeFloat;
-                    Debug.Log("hey");
                     Debug.Log(volumeFloat);
                     volumeInput.text = volumeFloat.ToString();
                 }
@@ -128,7 +127,6 @@ public class PauseFunctions : MonoBehaviour
                 {
                     volumeFloat = 0f;
                     volumeSlider.value = volumeFloat;
-                    Debug.Log("gay");
                     Debug.Log(volumeFloat);
                     volumeInput.text = volumeFloat.ToString();
                 }

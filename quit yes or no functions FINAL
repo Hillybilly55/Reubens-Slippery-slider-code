@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class quityesno : MonoBehaviour
+{
+    //refrences all the things in the scene needed for the code to function
+    public InputField answer;
+    public string answerString;
+    public string[] acceptedYesAnswers;
+    public string[] acceptedNoAnswers;
+    public string[] acceptedFunnyAnswers;
+    public GameObject popup;
+
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+
+        for (int i = 0; i < acceptedYesAnswers.Length; i++)
+        {
+            //if you enter no and press enter/return then the game will take you back to the title screen
+            if (Input.GetKeyDown(KeyCode.Return) && answer.text == acceptedYesAnswers[i])
+            {
+                Debug.Log("Quit");
+                Application.Quit();
+
+            }
+            
+
+
+
+        }
+
+        for (int i = 0; i < acceptedNoAnswers.Length; i++)
+        {
+            //if you enter yes and press enter/return then the game will close
+            if (Input.GetKeyDown(KeyCode.Return) && answer.text == acceptedNoAnswers[i])
+            {
+                SceneManager.LoadScene("TITLE SCREEN");
+            }
+            else
+            {
+                if(Input.GetKeyDown(KeyCode.Return) && answer.text != acceptedNoAnswers[i])
+                {
+                    popup.SetActive(true);
+                }
+            }
+            
+
+        }
+
+       
+    }
+}

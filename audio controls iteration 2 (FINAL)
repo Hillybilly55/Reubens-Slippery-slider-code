@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class MusicFunctions : MonoBehaviour
+{
+    
+    private void Awake()
+    {
+        GameObject[] musicObj = GameObject.FindGameObjectsWithTag("music");
+        if (musicObj.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Endless mode")
+        {
+            
+            Destroy(this.gameObject);
+
+        }
+
+        if (SceneManager.GetActiveScene().name == "game over")
+        {
+           
+            Destroy(this.gameObject);
+
+        }
+
+        if (SceneManager.GetActiveScene().name == "TITLE SCREEN")
+        {
+            
+            
+        }
+    }
+}
